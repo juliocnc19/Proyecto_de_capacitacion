@@ -14,6 +14,7 @@ class Analista(ft.UserControl):
         self.lista_salon = []
         self.tabla_relacion = []
 
+
         def obtener_relacion(e):
             self.tabla_relacion.clear()
             datos_relacion = Relacion.leer()
@@ -84,23 +85,29 @@ class Analista(ft.UserControl):
             options= self.lista_salon
         )
         
-        self.nombre = ft.TextField(label="Nombre", autofocus=True, on_change=actualizar_institucion)
+        self.nombre = ft.TextField(label="Nombre", autofocus=True,on_change=actualizar_institucion)
         self.cedula = ft.TextField(label="Cedula")
         self.edad = ft.TextField(label="edad")
         self.boton = ft.ElevatedButton(text="Registrar")
+        self.mensaje = ft.Text("Rellene todos los campos correctamente",visible=False)
 
         #funcion que se encarga de llamar a la clase para crear el registro
         def crear_registro(e):
-            Persona.crear(registro_a_guardar=f"{self.cedula.value}--{self.nombre.value}--{self.edad.value}")
-            Estudiante.crear(registro_a_guardar=f"{self.cedula.value}--{self.grado.value}--{self.salon.value.split()[1]}")
-            Relacion.escribir_relacion(registro_a_guardar=f"{self.cedula.value}--{self.nombre.value}--{self.edad.value}--{self.grado.value}--{self.salon.value.split()[1]}--{self.institucion.value}\n")
-            self.nombre.value = ""
-            self.cedula.value = ""
-            self.edad.value = ""
-            self.grado.value = ""
-            self.institucion.value = ""
-            self.salon.value = ""
+            if self.nombre.value == "" or self.cedula.value == "" or self.edad.value ==  "":
+                self.mensaje.visible = True
+            else:
+                Persona.crear(registro_a_guardar=f"{self.cedula.value}--{self.nombre.value}--{self.edad.value}")
+                Estudiante.crear(registro_a_guardar=f"{self.cedula.value}--{self.grado.value}--{self.salon.value.split()[1]}")
+                Relacion.escribir_relacion(registro_a_guardar=f"{self.cedula.value}--{self.nombre.value}--{self.edad.value}--{self.grado.value}--{self.salon.value.split()[1]}--{self.institucion.value}\n")
+                self.nombre.value = ""
+                self.cedula.value = ""
+                self.edad.value = ""
+                self.grado.value = ""
+                self.institucion.value = ""
+                self.salon.value = ""
+                self.mensaje.visible = False
             self.update()
+
         #AQUI TODOS LOS ELEMENTOS QUE SE VAN A MOSTRAR
         return ft.Row([
             ft.Column([
@@ -128,7 +135,8 @@ class Analista(ft.UserControl):
                     content = self.salon,
                     margin = 10
                 ),
-                ft.ElevatedButton(text="Registrar", on_click=crear_registro,on_hover=obtener_relacion)
+                ft.ElevatedButton(text="Registrar", on_click=crear_registro,on_hover=obtener_relacion),
+                self.mensaje
 
             ]),
             ft.Container(

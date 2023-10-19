@@ -58,7 +58,7 @@ class Crud(ABC):
         with open(cls.nombre_archivo,"r") as archivo:
             datos = archivo.readlines()
             registro_a_cambiar = datos[kw.get('registro_a_cambiar')-1].split("--")
-            registro_a_cambiar[kw.get('campo_a_cambiar')-1] = kw.get('nuevo_contenido')
+            registro_a_cambiar[kw.get('campo_a_cambiar')-1] = kw.get('nuevo_contenido') 
             datos[kw.get('registro_a_cambiar')-1] = "--".join(registro_a_cambiar)
 
             for valor in datos:
@@ -69,7 +69,7 @@ class Crud(ABC):
             else:
                 with open(cls.nombre_archivo,"w") as archivo:
                     archivo.writelines(datos)
-                    print("El registro fue actualizado con exito")
+                   
 
     @abstractclassmethod
     def escribir_relacion(cls,**kw):
@@ -87,7 +87,20 @@ class Estudiante(Crud):
 
 class Salon(Crud):
     nombre_archivo = "salon.txt"
-    pass
+    @classmethod
+    def eliminar_seccion(cls,**kw):
+         with open(cls.nombre_archivo,"r") as archivo:
+            lista_registros = archivo.readlines()
+            for registro in lista_registros:
+                row = registro.split("--")
+                if kw.get("identificador") == row[0]:
+                    lista_registros.remove(registro)
+                    with open(cls.nombre_archivo,"w") as nuevo:
+                        nuevo.writelines(lista_registros)
+                        print("Registro borrado con exito")
+                        break
+            else:
+                print(kw.get('registro'))
 
 class Institucion(Crud):
     nombre_archivo = "institucion.txt"

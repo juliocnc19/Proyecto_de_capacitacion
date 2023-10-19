@@ -34,6 +34,13 @@ class Eliminar(ft.UserControl):
     
     def build(self):        
 
+        def actualizar_pagina(e):
+            self.personas.options = self.obtener_personas()
+            self.estudiante.options = self.obtener_estudiantes()
+            self.salon.options = self.obtener_salon()
+            self.institucion.options = self.obtener_institucion()
+            self.update()
+
         def eliminar_persona(e):
             valor_a_eliminar = self.personas.value.split()[1]
             Persona.eliminar(identificador=valor_a_eliminar)
@@ -55,8 +62,12 @@ class Eliminar(ft.UserControl):
         
         def eliminar_salon(e):
             valor_a_eliminar = self.salon.value.split()[1]
-            Salon.eliminar(identificador=valor_a_eliminar)
-            Relacion.eliminar(identificador=valor_a_eliminar)
+            registro_b = self.salon.value.split()[3]
+            Salon.eliminar_seccion(identificador=valor_a_eliminar,registro=str(registro_b))
+            with open("relacion.txt","r") as validar:
+                valor = validar.readlines
+                if valor:
+                    Relacion.eliminar(identificador=valor_a_eliminar)
             self.salon.options = self.obtener_salon()
             self.salon.value = " "
             self.update()
@@ -71,15 +82,14 @@ class Eliminar(ft.UserControl):
             self.institucion.value = " "
             self.update()
 
-        def actulizar_pagina(e):
-            self.obtener_personas()
-            self.obtener_institucion()
-            self.obtener_estudiantes()
-            self.obtener_salon()
-            self.update()
+        # def actulizar_pagina(e):
+        #     self.obtener_personas()
+        #     self.obtener_institucion()
+        #     self.obtener_estudiantes()
+        #     self.obtener_salon()
+        #     self.update()
 
         self.personas = ft.Dropdown(
-            on_focus= actulizar_pagina,
             label = "Personas",
             hint_text = "Elija una persona a eliminar",
             options =self.obtener_personas()
@@ -106,6 +116,7 @@ class Eliminar(ft.UserControl):
                     ft.Container(
                         content=self.personas,
                         margin=10,
+                        on_hover=actualizar_pagina
                     ),
                     ft.ElevatedButton(text="Eliminar", on_click=eliminar_persona)
                 ],
@@ -115,7 +126,8 @@ class Eliminar(ft.UserControl):
                     ft.Text("Estudiantes",size=30),
                     ft.Container(
                         content=self.estudiante,
-                        margin=10
+                        margin=10,
+                        on_hover=actualizar_pagina
                     ),
                     ft.ElevatedButton(text="Eliminar", on_click=eliminar_estudiante)
                 ],
@@ -125,7 +137,8 @@ class Eliminar(ft.UserControl):
                     ft.Text("Salon",size=30),
                     ft.Container(
                         content=self.salon,
-                        margin=10
+                        margin=10,
+                        on_hover=actualizar_pagina
                     ),
                     ft.ElevatedButton(text="Eliminar", on_click=eliminar_salon)
                 ],
@@ -135,7 +148,8 @@ class Eliminar(ft.UserControl):
                     ft.Text("Institucion",size=30),
                     ft.Container(
                         content=self.institucion,
-                        margin=10
+                        margin=10,
+                        on_hover=actualizar_pagina
                     ),
                     ft.ElevatedButton(text="Eliminar", on_click=eliminar_institucion)
                 ],

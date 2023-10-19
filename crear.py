@@ -14,16 +14,24 @@ class Crear(ft.UserControl):
         self.lista_institucion = []
 
         def guardar_institucion(e):
-            Institucion.crear(registro_a_guardar=f"{self.codigo_institucion.value}--{self.nombre_institucion.value}")
-            self.nombre_institucion.value = ""
-            self.codigo_institucion.value = ""
-            self.institucion_a_elegir.options = self.arreglo_institucion()
+            if self.nombre_institucion.value == "" or self.codigo_institucion.value == "":
+                self.mensaje.visible = True
+            else:
+                Institucion.crear(registro_a_guardar=f"{self.codigo_institucion.value}--{self.nombre_institucion.value}")
+                self.nombre_institucion.value = ""
+                self.codigo_institucion.value = ""
+                self.institucion_a_elegir.options = self.arreglo_institucion()
+                self.mensaje.visible = False
             self.update()
 
         def guardar_salon(e):
-            Salon.crear(registro_a_guardar=f"{self.institucion_a_elegir.value.split()[0]}--{self.numero_de_secciones.value}")
-            self.institucion_a_elegir.value = ""
-            self.numero_de_secciones.value = ""
+            if self.institucion_a_elegir.value == "" or self.numero_de_secciones.value == "":
+                 self.mensaje_2.visible = True
+            else:
+                Salon.crear(registro_a_guardar=f"{self.institucion_a_elegir.value.split()[0]}--{self.numero_de_secciones.value}")
+                self.institucion_a_elegir.value = ""
+                self.numero_de_secciones.value = ""
+                self.mensaje_2.visible = True
             self.update()
 
         self.numero_de_secciones = ft.Dropdown(
@@ -50,6 +58,8 @@ class Crear(ft.UserControl):
 
         self.nombre_institucion = ft.TextField(label="Nombre Institucion")
         self.codigo_institucion = ft.TextField(label="Codigo de la Institucion")
+        self.mensaje = ft.Text("Ingrese los campos correctamente", visible=False)
+        self.mensaje_2 = ft.Text("Ingrese los campos correctamente", visible=False)
 
         return ft.Row([
             ft.Column([
@@ -62,7 +72,8 @@ class Crear(ft.UserControl):
                     content = self.codigo_institucion,
                     margin = 20
                 ),
-                ft.ElevatedButton(text="Guardar", on_click=guardar_institucion)
+                ft.ElevatedButton(text="Guardar", on_click=guardar_institucion),
+                self.mensaje
             ],
                 alignment=ft.MainAxisAlignment.CENTER
             ),

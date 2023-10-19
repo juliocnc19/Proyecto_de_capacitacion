@@ -168,20 +168,90 @@ class Actualizar(ft.UserControl):
             campo = ""
             if self.elegir_campo_persona.value == "Cedula":
                 campo = 1
-                Estudiante.actualizar(registro_a_cambiar=int(self.elegir_registro_persona.value),campo_a_cambiar=campo,nuevo_contenido=self.nuevo_contenido_persona.value)
+                Persona.actualizar(registro_a_cambiar=int(self.elegir_registro_persona.value),campo_a_cambiar=campo,nuevo_contenido=self.nuevo_contenido_persona.value)
                 Relacion.actualizar(registro_a_cambiar=int(self.elegir_registro_persona.value),campo_a_cambiar=campo,nuevo_contenido=self.nuevo_contenido_persona.value)
             elif self.elegir_campo_persona.value == "Nombre":
                 campo = 2
+                Persona.actualizar(registro_a_cambiar=int(self.elegir_registro_persona.value),campo_a_cambiar=campo,nuevo_contenido=self.nuevo_contenido_persona.value)
                 Relacion.actualizar(registro_a_cambiar=int(self.elegir_registro_persona.value),campo_a_cambiar=campo,nuevo_contenido=self.nuevo_contenido_persona.value)
             elif self.elegir_campo_persona.value == "Edad":
                 campo = 3
-                Persona.actualizar(registro_a_cambiar=int(self.elegir_registro_persona.value),campo_a_cambiar=campo,nuevo_contenido=f"{self.nuevo_contenido_persona}\n")
-                Relacion.actualizar(registro_a_cambiar=int(self.elegir_registro_persona.value),campo_a_cambiar=campo,nuevo_contenido=str(self.nuevo_contenido_persona.value))
-            Persona.actualizar(registro_a_cambiar=int(self.elegir_registro_persona.value),campo_a_cambiar=campo,nuevo_contenido=str(self.nuevo_contenido_persona.value))
+                Persona.actualizar(registro_a_cambiar=int(self.elegir_registro_persona.value),campo_a_cambiar=campo,nuevo_contenido=f"{self.nuevo_contenido_persona.value}\n")
+                Relacion.actualizar(registro_a_cambiar=int(self.elegir_registro_persona.value),campo_a_cambiar=campo,nuevo_contenido=self.nuevo_contenido_persona.value)
+            #Persona.actualizar(registro_a_cambiar=int(self.elegir_registro_persona.value),campo_a_cambiar=campo,nuevo_contenido=self.nuevo_contenido_persona.value)
             self.elegir_campo_estudiante.value = ""
             self.elegir_registro_persona.value = ""
             self.nuevo_contenido_persona.value = ""
             self.update()
+
+            """
+                **************************************************************
+                **************************************************************
+                **************************************************************
+            """
+
+        def actualizar_estudiante(e):
+            campo = ""
+            if self.elegir_campo_estudiante.value == "Cedula":
+                campo = 1
+                Estudiante.actualizar(registro_a_cambiar=int(self.elegir_registro_estudiante.value),campo_a_cambiar=campo,nuevo_contenido=self.nuevo_contenido_estudiante.value)
+                Relacion.actualizar(registro_a_cambiar=int(self.elegir_registro_estudiante.value),campo_a_cambiar=campo,nuevo_contenido=self.nuevo_contenido_estudiante.value)
+            elif self.elegir_campo_estudiante.value == "Grado":
+                campo = 2
+                Estudiante.actualizar(registro_a_cambiar=int(self.elegir_registro_estudiante.value),campo_a_cambiar=campo,nuevo_contenido=self.nuevo_contenido_estudiante.value)
+                Relacion.actualizar(registro_a_cambiar=int(self.elegir_registro_estudiante.value),campo_a_cambiar=4,nuevo_contenido=self.nuevo_contenido_estudiante.value)
+            elif self.elegir_campo_estudiante.value == "Seccion":
+                campo = 3
+                Estudiante.actualizar(registro_a_cambiar=int(self.elegir_registro_estudiante.value),campo_a_cambiar=campo,nuevo_contenido=f"{self.nuevo_contenido_estudiante.value}\n")
+                Relacion.actualizar(registro_a_cambiar=int(self.elegir_registro_estudiante.value),campo_a_cambiar=5,nuevo_contenido=self.nuevo_contenido_estudiante.value)
+            #Persona.actualizar(registro_a_cambiar=int(self.elegir_registro_persona.value),campo_a_cambiar=campo,nuevo_contenido=self.nuevo_contenido_persona.value)
+            self.elegir_campo_estudiante.value = ""
+            self.elegir_registro_estudiante.value = ""
+            self.nuevo_contenido_estudiante.value = ""
+            self.update()
+
+            """
+                **************************************************************
+                **************************************************************
+                **************************************************************
+            """
+
+        def actualizar_salon(e):
+            campo = ""
+            if self.elegir_campo_salon.value == "ID_Salon":
+                campo = 1
+                Salon.actualizar(registro_a_cambiar=int(self.elegir_registro_salon.value),campo_a_cambiar=campo,nuevo_contenido=self.nuevo_contenido_salon.value)
+            elif self.elegir_campo_salon.value == "Seccion":
+                campo = 2
+                Salon.actualizar(registro_a_cambiar=int(self.elegir_registro_salon.value),campo_a_cambiar=campo,nuevo_contenido=f"{self.nuevo_contenido_salon.value}\n")
+            #Persona.actualizar(registro_a_cambiar=int(self.elegir_registro_persona.value),campo_a_cambiar=campo,nuevo_contenido=self.nuevo_contenido_persona.value)
+            self.elegir_campo_salon.value = ""
+            self.elegir_registro_salon.value = ""
+            self.nuevo_contenido_salon.value = ""
+            self.update()
+
+
+            """
+                **************************************************************
+                **************************************************************
+                **************************************************************
+            """
+        
+        def actualizar_institucion(e):
+            campo = ""
+            if self.    elegir_campo_institucion.value == "ID_Institucion":
+                campo = 1
+                Institucion.actualizar(registro_a_cambiar=int(self.elegir_registro_institucion.value),campo_a_cambiar=campo,nuevo_contenido=self.nuevo_contenido_institucion.value)
+            elif self.  elegir_campo_institucion.value == "Nombre":
+                campo = 2
+                Salon.actualizar(registro_a_cambiar=int(self.elegir_registro_institucion.value),campo_a_cambiar=campo,nuevo_contenido=f"{self.nuevo_contenido_institucion.value}\n")
+            #Persona.actualizar(registro_a_cambiar=int(self.elegir_registro_persona.value),campo_a_cambiar=campo,nuevo_contenido=self.nuevo_contenido_persona.value)
+            self.elegir_campo_institucion.value = ""
+            self.elegir_registro_institucion.value = ""
+            self.nuevo_contenido_institucion.value = ""
+            self.update()
+
+
             
 
         #########################################################################################################
@@ -217,7 +287,7 @@ class Actualizar(ft.UserControl):
                         self.elegir_registro_estudiante,
                         self.elegir_campo_estudiante,
                         self.nuevo_contenido_estudiante,
-                        ft.ElevatedButton(text="Actualizar")
+                        ft.ElevatedButton(text="Actualizar", on_click=actualizar_estudiante, on_hover=datos_estudiante)
                     ])
                 )
             ],
@@ -235,7 +305,7 @@ class Actualizar(ft.UserControl):
                         self.elegir_registro_salon,
                         self.elegir_campo_salon,
                         self.nuevo_contenido_salon,
-                        ft.ElevatedButton(text="Actualizar")
+                        ft.ElevatedButton(text="Actualizar",on_click=actualizar_salon, on_hover=datos_salon)
                     ])
                 )
             ],
@@ -253,7 +323,7 @@ class Actualizar(ft.UserControl):
                         self.elegir_registro_institucion,
                         self.elegir_campo_institucion,
                         self.nuevo_contenido_institucion,
-                        ft.ElevatedButton(text="Actualizar")
+                        ft.ElevatedButton(text="Actualizar",on_click=actualizar_institucion, on_hover=datos_institucion)
                     ])
                 )
             ],
